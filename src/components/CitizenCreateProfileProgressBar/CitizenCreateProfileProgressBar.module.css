@@ -1,0 +1,114 @@
+.citizenCreateProfileProgressBar {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+
+  /* Progress-Gift */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12px 10px;
+
+  width: 90%;
+  height: 97px;
+
+  background: linear-gradient(180deg, rgba(39, 44, 44, 0) 0%, #272c2c 100%), #495057;
+  border-radius: 8px;
+
+  margin-top: 20px;
+
+  .firstRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .presentBox {
+      /* Frame 91 */
+
+      box-sizing: border-box;
+
+      /* Auto layout */
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 0px;
+      gap: 2.22px;
+
+      width: 40px;
+      height: 40px;
+
+      background: linear-gradient(180deg, #484f56 0%, #292e2e 100%), #212529;
+      border: 1px solid #495057;
+      border-radius: 44.4444px;
+
+      /* Inside auto layout */
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+    }
+    .presentDescription {
+      /* Votre cadeau Ticketmaster sera disponible en fin d’inscription */
+
+      width: 263px;
+      height: 40px;
+
+      /* Body/Bold/Text-XS */
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 700;
+      font-size: rem(15px);
+      /* font-size: 12px; */
+      /* line-height: 150%; */
+      /* or 18px */
+
+      /* Gray/Gray 0 */
+      color: #f8f9fa;
+
+      /* Inside auto layout */
+      flex: none;
+      order: 1;
+      align-self: stretch;
+      flex-grow: 1;
+    }
+  }
+
+  .secondRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 14px;
+
+    .percentNumber {
+      width: 40px;
+      height: 21px;
+
+      /* Body/Semibold/Text-SM */
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 600;
+      font-size: rem(14px);
+      line-height: 150%;
+      /* identical to box height, or 21px */
+      text-align: center;
+      letter-spacing: 0.0125em;
+
+      color: #ffffff;
+
+      /* Inside auto layout */
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+    }
+    .percentLine {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      width: 100%;
+      padding-top: 7px;
+      /* height: 25px; */
+      /* border: 1px solid red; */
+    }
+  }
+}

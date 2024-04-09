@@ -1,0 +1,22 @@
+.formSearchArea {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .searchInput {
+    width: 100%;
+
+    /* Auto layout */
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+
+    height: rem(44px);
+
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+  }
+}
