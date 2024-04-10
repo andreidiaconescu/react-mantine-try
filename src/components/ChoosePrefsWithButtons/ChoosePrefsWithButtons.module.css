@@ -1,7 +1,7 @@
-.formSearchArea {
+.choosePrefsWithButtons {
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 
   .searchInput {
@@ -16,7 +16,19 @@
 
     /* Inside auto layout */
     flex: none;
-    order: 2;
     flex-grow: 0;
+  }
+
+  .prefButtons {
+    display: flex;
+    flex-direction: row;
+    justify-items: left;
+    /* width: 100%; */
+    flex-wrap: wrap;
+
+    .prefButton {
+      margin-left: 10px;
+      margin-top: 10px;
+    }
   }
 }

@@ -1,0 +1,12 @@
+.root {
+  min-width: fit-content;
+  border-color: #dee2e6;
+}
+
+.inner {
+  max-width: 185px;
+  text-align: left;
+}
+.label {
+  color: #495057;
+}

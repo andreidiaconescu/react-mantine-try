@@ -1,9 +1,9 @@
 import { render, screen } from '@test-utils';
-import { FormSearchArea } from './FormSearchArea';
+import { ChoosePrefsWithButtons } from './ChoosePrefsWithButtons';
 
-describe('FormSearchArea component', () => {
+describe('ChoosePrefsWithButtons component', () => {
   it('has correct Vite guide link', () => {
-    render(<FormSearchArea />);
+    render(<ChoosePrefsWithButtons />);
     expect(screen.getByText('this guide')).toHaveAttribute(
       'href',
       'https://mantine.dev/guides/vite/'

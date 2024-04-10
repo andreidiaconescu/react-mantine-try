@@ -5,7 +5,7 @@ import classes from './PreferredAreas.module.css';
 import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame';
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
-import { FormSearchArea } from '../components/FormSearchArea/FormSearchArea';
+import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
 
 export function PreferredAreas() {
   return (
@@ -19,7 +19,7 @@ export function PreferredAreas() {
             Sélectionnez les villes, régions et provinces où vous profitez habituellement de vos
             activités culturelles.
           </div>
-          <FormSearchArea />
+          <ChoosePrefsWithButtons />
         </div>
       </CitizenPageFrame>
     </>
