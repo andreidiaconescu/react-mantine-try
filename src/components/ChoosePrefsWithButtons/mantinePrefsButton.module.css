@@ -1,12 +1,31 @@
-.root {
+.root_not_sel {
   min-width: fit-content;
   border-color: #dee2e6;
 }
 
-.inner {
+.inner_not_sel {
   max-width: 185px;
   text-align: left;
 }
-.label {
+.label_not_sel {
   color: #495057;
+}
+
+.root_sel {
+  min-width: fit-content;
+  border-color: #495057;
+  background-color: #495057;
+
+  &:hover {
+    border-color: #495057;
+    background-color: #495057;
+  }
+}
+
+.inner_sel {
+  max-width: 185px;
+  text-align: left;
+}
+.label_sel {
+  color: #ffff;
 }
