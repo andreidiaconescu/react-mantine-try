@@ -1,5 +1,3 @@
-// import { Welcome } from '../components/Welcome/Welcome';
-// import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
 import { useState } from 'react';
 import classes from './PreferredAreas.module.css';
 
@@ -11,46 +9,24 @@ import { MockAreas, MockArea } from '../data/mock/mock-areas';
 
 export function PreferredAreas() {
   const prefs: MockArea[] = MockAreas;
-  const [selectedDataItems, setSelectedDataItems] = useState([]);
-  const [searchedPref, setSearchedPref] = useState('');
-  let filteredPrefs: MockArea[] = prefs;
+  const [selectedPrefs, setSelectedPrefs] = useState([]);
 
-  const onChangeSearchPref = (changedSearchPref: string) => {
-    console.log('PreferredAreas onChangeSearchPref changedSearchPref', changedSearchPref);
-    filteredPrefs = prefs.filter((pref: MockArea) => {
-      const cPref: string = changedSearchPref ? changedSearchPref.trim().toLowerCase() : '';
-      if (!cPref) {
-        return true;
-      }
-      return pref.name.trim().toLowerCase().includes(cPref);
-    });
-    console.log('PreferredAreas onChangeSearchPref filteredPrefs', filteredPrefs);
-    setSearchedPref(`${changedSearchPref}`);
-  };
-
-  const onSelectDataItem = (selectedDataItem: any) => {
+  const onSelectPref = (selectedDataItem: any) => {
     if (
-      !selectedDataItems.find(
+      !selectedPrefs.find(
         (alreadySelItem) =>
           alreadySelItem.termCode && alreadySelItem.termCode === selectedDataItem.termCode
       )
     ) {
-      setSelectedDataItems([...selectedDataItems, selectedDataItem]);
+      setSelectedPrefs([...selectedPrefs, selectedDataItem]);
     } else {
-      setSelectedDataItems([
-        ...selectedDataItems.filter(
+      setSelectedPrefs([
+        ...selectedPrefs.filter(
           (alreadySelItem) =>
             alreadySelItem.termCode && alreadySelItem.termCode !== selectedDataItem.termCode
         ),
       ]);
     }
-    // selectedDataItems.push(selectedDataItem);
-    console.log(
-      'PreferredAreas selectedDataItems: ',
-      selectedDataItems,
-      ' selectedDataItem: ',
-      selectedDataItem
-    );
   };
 
   return (
@@ -65,11 +41,9 @@ export function PreferredAreas() {
             activités culturelles.
           </div>
           <ChoosePrefsWithButtons
-            dataItems={filteredPrefs}
-            selectedDataItems={selectedDataItems}
-            onSelectDataItem={onSelectDataItem}
-            searchedPref={searchedPref}
-            onChangeSearchPref={onChangeSearchPref}
+            prefs={prefs}
+            selectedPrefs={selectedPrefs}
+            onSelectPref={onSelectPref}
           />
         </div>
       </CitizenPageFrame>

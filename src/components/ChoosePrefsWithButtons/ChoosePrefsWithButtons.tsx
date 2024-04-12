@@ -1,5 +1,5 @@
 // import { Title, Text, Anchor } from '@mantine/core';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { Button, TextInput, rem } from '@mantine/core';
 import { IconSearch, IconCheck } from '@tabler/icons-react';
 
@@ -8,30 +8,43 @@ import mantineButtonStyles from './mantinePrefsButton.module.css';
 // import { MockArea } from '../../data/mock/mock-areas';
 
 export function ChoosePrefsWithButtons({
-  dataItems,
-  selectedDataItems,
-  onSelectDataItem,
-  searchedPref,
-  onChangeSearchPref,
+  prefs,
+  selectedPrefs,
+  onSelectPref,
 }: PropsWithChildren<{
-  dataItems: any[];
-  selectedDataItems?: any[];
-  onSelectDataItem?: (selectedDataItem: any) => any;
+  prefs: any[];
+  selectedPrefs?: any[];
+  onSelectPref?: (selectedPref: any) => any;
   searchedPref?: string;
   onChangeSearchPref?: (searchPrefChanged: string) => any;
 }>) {
-  console.log('ChoosePrefsWithButtons dataItems', dataItems);
+  const [searchedPref, setSearchedPref] = useState('');
+
+  const isPrefSelected = (pref: any) =>
+    Array.isArray(selectedPrefs) &&
+    selectedPrefs.find((selPref) => pref.termCode && pref.termCode === selPref.termCode);
+
+  const filterPrefs = (filterBy: string) => [
+    ...prefs.filter((pref: any) => {
+      const cPref: string = filterBy ? filterBy.trim().toLowerCase() : '';
+      if (!cPref) {
+        return true;
+      }
+      return isPrefSelected(pref) || pref.name.trim().toLowerCase().includes(cPref);
+    }),
+  ];
+  const filteredPrefs = filterPrefs(searchedPref);
+
+  const onChangeSearchPref = (changedSearchPref: string) => {
+    setSearchedPref(`${changedSearchPref}`);
+  };
+
   const iconSearch = (
     <IconSearch style={{ width: rem(24), height: rem(24) }} stroke="1.5" color="black" />
   );
   const iconPrefButtonSel = (
     <IconCheck style={{ width: rem(24), height: rem(24) }} stroke="1.5" color="#9BF57B" />
   );
-  const isDataItemSelected = (dataItem: any) =>
-    Array.isArray(selectedDataItems) &&
-    selectedDataItems.find(
-      (selDataItem) => dataItem.termCode && dataItem.termCode === selDataItem.termCode
-    );
 
   return (
     <>
@@ -47,11 +60,11 @@ export function ChoosePrefsWithButtons({
           }
         />
         <div className={classes.prefButtons}>
-          {dataItems.map((dataItem) => {
-            const isItemSel: boolean = isDataItemSelected(dataItem);
+          {filteredPrefs.map((pref) => {
+            const isItemSel: boolean = isPrefSelected(pref);
             return (
               <Button
-                key={dataItem.termCode || dataItem._id}
+                key={pref.termCode || pref._id}
                 variant={isItemSel ? 'filled' : 'outline'}
                 radius="xl"
                 leftSection={isItemSel ? iconPrefButtonSel : null}
@@ -69,31 +82,23 @@ export function ChoosePrefsWithButtons({
                         label: mantineButtonStyles.label_not_sel,
                       }
                 }
-                onClick={() => onSelectDataItem(dataItem)}
+                onClick={() => onSelectPref(pref)}
               >
-                {dataItem.name}
+                {pref.name}
               </Button>
             );
           })}
-          {/* <Button
-            variant="outline"
-            radius="xl"
-            className={classes.prefButton}
-            classNames={mantineButtonStyles}
-          >
-            Button 1 serfg ewrg weg wertgh getryh wergw erth wwerfq ert werf qwert e tyuktyujrt
-          </Button> */}
         </div>
         <div className={classes.prefButtons}>
-          {selectedDataItems.map((selDataItem) => (
+          {selectedPrefs.map((selPref) => (
             <Button
-              key={selDataItem.termCode || selDataItem._id}
+              key={selPref.termCode || selPref._id}
               variant="outline"
               radius="xl"
               className={classes.prefButton}
               classNames={mantineButtonStyles}
             >
-              {selDataItem.name}
+              {selPref.name}
             </Button>
           ))}
         </div>
