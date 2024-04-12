@@ -89,7 +89,7 @@ export function ChoosePrefsWithButtons({
             );
           })}
         </div>
-        <div className={classes.prefButtons}>
+        {/* <div className={classes.prefButtons}>
           {selectedPrefs.map((selPref) => (
             <Button
               key={selPref.termCode || selPref._id}
@@ -101,7 +101,7 @@ export function ChoosePrefsWithButtons({
               {selPref.name}
             </Button>
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );
