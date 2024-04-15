@@ -1,10 +1,13 @@
 // import { Title, Text, Anchor } from '@mantine/core';
+import { PropsWithChildren } from 'react';
 import { Progress } from '@mantine/core';
 
 import classes from './CitizenCreateProfileProgressBar.module.css';
 import profileCompletePresentUrl from './profile_complete_present.svg';
 
-export function CitizenCreateProfileProgressBar() {
+export function CitizenCreateProfileProgressBar({
+  progressValue = 10,
+}: PropsWithChildren<{ progressValue: number }>) {
   return (
     <>
       <div className={classes.citizenCreateProfileProgressBar}>
@@ -17,9 +20,9 @@ export function CitizenCreateProfileProgressBar() {
           </div>
         </div>
         <div className={classes.secondRow}>
-          <div className={classes.percentNumber}>10%</div>
+          <div className={classes.percentNumber}>{progressValue}%</div>
           <div className={classes.percentLine}>
-            <Progress size="4" radius="2" value={20} color="#33CCCC" />
+            <Progress size="4" radius="2" value={progressValue} color="#33CCCC" />
           </div>
         </div>
       </div>

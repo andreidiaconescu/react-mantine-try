@@ -1,0 +1,39 @@
+.citizenCreateProfileNavigate {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+
+  background-color: #ffffff;
+  width: 100%;
+  height: rem(80px);
+  margin-top: rem(20px);
+
+  /* Auto layout */
+  display: flex;
+
+  .navigationHolder {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    /* align-items: flex-start; */
+    justify-content: space-between;
+    .goNextButton {
+      width: (56px);
+      height: (56px);
+
+      background: linear-gradient(180deg, #495057 0%, rgba(73, 80, 87, 0) 100%), #212529;
+
+      /* Inside auto layout */
+      flex: none;
+      flex-grow: 0;
+    }
+    .goPrevButton {
+    }
+  }
+}
+
+.nav_button_root {
+  width: 54px;
+}
+.nav_button_icon {
+  /* width: 24px
+  height: 24px; */
+}
