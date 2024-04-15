@@ -1,15 +1,8 @@
-/* eslint-disable max-classes-per-file */
-export class MockModelBase {
-  constructor(initData: Record<string, any> = {}) {
-    const propNames: string[] = Object.keys(initData);
-    propNames.forEach((propName: string) => {
-      // @ts-ignore
-      this[propName] = initData[propName];
-    });
-  }
-}
+import { Area } from '@/models/Area.interface';
+import { ModelBase } from '@/models/ModelBase';
 
-export class MockArea extends MockModelBase {
+/* eslint-disable max-classes-per-file */
+export class MockArea extends ModelBase implements Area {
   public name: string;
   public termCode: string;
   public version: number;

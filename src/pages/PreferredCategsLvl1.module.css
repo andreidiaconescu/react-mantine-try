@@ -1,0 +1,52 @@
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  margin-top: rem(20px);
+  width: 90%;
+
+  .contentTitle {
+    /* Vos lieux de sorties */
+
+    width: 100%;
+    height: rem(36px);
+
+    /* Headings/MD/Bold */
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: rem(24px);
+    line-height: 150%;
+    /* identical to box height, or 36px */
+
+    color: #212529;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .firstParagraph {
+    /* Sélectionnez les villes, régions et provinces où vous profitez habituellement de vos activités culturelles. */
+
+    margin-top: rem(7px);
+    width: 100%;
+    height: rem(72px);
+
+    /* Body/Regular/Text-MD */
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    /* or 24px */
+
+    color: #495057;
+
+    /* Inside auto layout */
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+}

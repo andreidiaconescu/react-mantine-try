@@ -1,19 +1,19 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import classes from './PreferredAreas.module.css';
+import classes from './PreferredCategsLvl1.module.css';
 
 import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame';
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockAreas } from '../data/mock/mock-areas';
+import { MockAreas, MockArea } from '../data/mock/mock-areas';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
+import { addPref, removePref } from '../state/pref.state.utils';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
 import { Area } from '@/models/Area.interface';
-import { addPref, removePref } from '../state/pref.state.utils';
 
-export function PreferredAreas() {
-  const prefs: Area[] = MockAreas;
+export function PreferredCategsLvl1() {
+  const prefs: MockArea[] = MockAreas;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export function PreferredAreas() {
     removePref(selectedPrefs, selectedDataItem, setSelectedPrefs);
   };
 
-  const onNavigateNext = (nextRoute: string) => {
+  const onNavigatePrev = (nextRoute: string) => {
     console.log('PreferredAreas.onNavigateNext selectedPrefs', selectedPrefs);
     console.log(
       'PreferredAreas.onNavigateNext citizenPreferences.areas 1',
@@ -45,12 +45,11 @@ export function PreferredAreas() {
     <>
       <CitizenPageFrame>
         <CitizenHeader />
-        <CitizenCreateProfileProgressBar progressValue={10}></CitizenCreateProfileProgressBar>
+        <CitizenCreateProfileProgressBar progressValue={20}></CitizenCreateProfileProgressBar>
         <div className={classes.pageContent}>
-          <div className={classes.contentTitle}>Vos lieux de sorties</div>
+          <div className={classes.contentTitle}>Vos activités préférées</div>
           <div className={classes.firstParagraph}>
-            Sélectionnez les villes, régions et provinces où vous profitez habituellement de vos
-            activités culturelles.
+            Sélectionnez les types d’activités qui vous intéressent.
           </div>
           <ChoosePrefsWithButtons
             prefs={prefs}
@@ -58,11 +57,10 @@ export function PreferredAreas() {
             onSelectPref={onSelectPref}
             onDeSelectPref={onDeSelectPref}
           />
-          {/* <CitizenCreateProfileNavigate next previous /> */}
           <CitizenCreateProfileNavigate
             next
             previous
-            onNavigateNext={() => onNavigateNext('/citizen/create-profile/preferred-categs-lvl1')}
+            onNavigatePrev={() => onNavigatePrev('/citizen/create-profile/preferred-areas')}
           />
         </div>
       </CitizenPageFrame>

@@ -7,13 +7,24 @@ import classes from './CitizenCreateProfileNavigate.module.css';
 export function CitizenCreateProfileNavigate({
   next = true,
   previous = false,
-}: PropsWithChildren<{ next?: boolean; previous?: boolean }>) {
+  onNavigateNext,
+  onNavigatePrev,
+}: PropsWithChildren<{
+  next?: boolean;
+  previous?: boolean;
+  onNavigateNext?: () => any;
+  onNavigatePrev?: () => any;
+}>) {
   const iconArrowRight = (
     <IconArrowRight style={{ width: rem(29), height: rem(29) }} stroke="1.5" color="#ffffff" />
   );
   const iconArrowLeft = (
     <IconArrowLeft style={{ width: rem(29), height: rem(29) }} stroke="1.5" color="#ffffff" />
   );
+
+  const onLocalNavNext = () => {
+    onNavigateNext();
+  };
 
   return (
     <>
@@ -30,7 +41,7 @@ export function CitizenCreateProfileNavigate({
                 root: classes.nav_button_root,
                 icon: classes.nav_button_icon,
               }}
-              // onClick={() => onSelectPref(pref)}
+              onClick={() => onNavigatePrev()}
             >
               {iconArrowLeft}
             </ActionIcon>
@@ -47,7 +58,7 @@ export function CitizenCreateProfileNavigate({
                 root: classes.nav_button_root,
                 icon: classes.nav_button_icon,
               }}
-              // onClick={() => onSelectPref(pref)}
+              onClick={() => onLocalNavNext()}
             >
               {iconArrowRight}
             </ActionIcon>

@@ -11,10 +11,12 @@ export function ChoosePrefsWithButtons({
   prefs,
   selectedPrefs,
   onSelectPref,
+  onDeSelectPref,
 }: PropsWithChildren<{
   prefs: any[];
   selectedPrefs?: any[];
   onSelectPref?: (selectedPref: any) => any;
+  onDeSelectPref?: (selectedPref: any) => any;
   searchedPref?: string;
   onChangeSearchPref?: (searchPrefChanged: string) => any;
 }>) {
@@ -82,7 +84,7 @@ export function ChoosePrefsWithButtons({
                         label: mantineButtonStyles.label_not_sel,
                       }
                 }
-                onClick={() => onSelectPref(pref)}
+                onClick={() => (isItemSel ? onDeSelectPref(pref) : onSelectPref(pref))}
               >
                 {pref.name}
               </Button>
