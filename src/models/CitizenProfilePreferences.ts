@@ -1,8 +1,8 @@
-import { Area } from './Area.interface';
-import { Category } from './Category.interface';
+import { AreaInterface } from './Area.interface';
+import { CategoryInterface } from './Category.interface';
 
 export class CitizenProfilePreferences {
-  areas?: Area[];
-  categoriesLvl1?: Category[];
-  categoriesLvl2?: Category[];
+  areas?: AreaInterface[];
+  categoriesLvl1?: CategoryInterface[];
+  categoriesLvl2?: CategoryInterface[];
 }

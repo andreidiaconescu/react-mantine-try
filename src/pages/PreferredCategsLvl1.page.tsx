@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './PreferredCategsLvl1.module.css';
 
@@ -6,17 +6,22 @@ import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockAreas, MockArea } from '../data/mock/mock-areas';
+import { MockCategory, getCategsLvl1 } from '../data/mock/mock-categs';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
-import { addPref, removePref } from '../state/pref.state.utils';
+import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { Area } from '@/models/Area.interface';
+import { CategoryInterface } from '@/models/Category.interface';
 
 export function PreferredCategsLvl1() {
-  const prefs: MockArea[] = MockAreas;
+  const prefs: MockCategory[] = getCategsLvl1();
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
+  useEffect(() => {
+    // copy preferences from higher level state (in CitizenCreateProfile component) to local state, if they changed in the high level state
+    setSelectedPrefs(citizenPreferences.categoriesLvl1 || []);
+  }, [citizenPreferences.categoriesLvl1]);
   const navigate = useNavigate();
+  console.log('PreferredCategsLvl1 citizenPreferences', citizenPreferences);
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);
@@ -26,16 +31,9 @@ export function PreferredCategsLvl1() {
   };
 
   const onNavigatePrev = (nextRoute: string) => {
-    console.log('PreferredAreas.onNavigateNext selectedPrefs', selectedPrefs);
-    console.log(
-      'PreferredAreas.onNavigateNext citizenPreferences.areas 1',
-      citizenPreferences.areas
-    );
-    citizenPreferences.areas = citizenPreferences.areas || [];
-    selectedPrefs.forEach((selectedArea: Area) => {
-      citizenPreferences.areas = addPref(citizenPreferences.areas, selectedArea, null);
-    });
-    console.log('PreferredAreas.onNavigateNext citizenPreferences 2', citizenPreferences);
+    // copy local preferences to higher level state (in CitizenCreateProfile)
+    citizenPreferences.categoriesLvl1 = addPrefs(citizenPreferences.categoriesLvl1, selectedPrefs);
+    console.log('PreferredCategsLvl1.onNavigateNext citizenPreferences 2', citizenPreferences);
     setCitizenPreferences(citizenPreferences);
 
     navigate(nextRoute);

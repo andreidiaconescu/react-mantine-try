@@ -6,6 +6,10 @@ export const addPref = (
   setPrefsInState: (prefs: any) => any
 ): any => {
   let updatedCollection = destCollection;
+  if (!Array.isArray(destCollection)) {
+    destCollection = [];
+  }
+
   if (
     !destCollection.find(
       (alreadySelItem) =>
@@ -20,11 +24,27 @@ export const addPref = (
   return updatedCollection;
 };
 
+export const addPrefs = <PrefType = ModelBase>(
+  destCollection: PrefType[],
+  selectedPrefs: PrefType[]
+): PrefType[] => {
+  // copy local preferences to higher level state (in CitizenCreateProfile)
+  destCollection = destCollection || [];
+  selectedPrefs.forEach((selectedArea: PrefType) => {
+    destCollection = addPref(destCollection, selectedArea, null);
+  });
+  return [...destCollection];
+};
+
 export const removePref = (
   destCollection: ModelBase[],
   selectedDataItem: ModelBase,
   setPrefsInState: (prefs: any) => any
 ): any => {
+  if (!Array.isArray(destCollection)) {
+    destCollection = [];
+  }
+
   const updatedCollection = destCollection.filter(
     (alreadySelItem) =>
       alreadySelItem.termCode && alreadySelItem.termCode !== selectedDataItem.termCode

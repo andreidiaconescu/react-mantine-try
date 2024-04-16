@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './PreferredAreas.module.css';
 
@@ -9,14 +9,19 @@ import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/Cho
 import { MockAreas } from '../data/mock/mock-areas';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { Area } from '@/models/Area.interface';
-import { addPref, removePref } from '../state/pref.state.utils';
+import { AreaInterface } from '@/models/Area.interface';
+import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
 
 export function PreferredAreas() {
-  const prefs: Area[] = MockAreas;
+  const prefs: AreaInterface[] = MockAreas;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
+  useEffect(() => {
+    // copy preferences from higher level state (in CitizenCreateProfile component) to local state, if they changed in the high level state
+    setSelectedPrefs(citizenPreferences.areas || []);
+  }, [citizenPreferences.areas]);
   const navigate = useNavigate();
+  console.log('PreferredAreas citizenPreferences', citizenPreferences);
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);
@@ -26,15 +31,8 @@ export function PreferredAreas() {
   };
 
   const onNavigateNext = (nextRoute: string) => {
-    console.log('PreferredAreas.onNavigateNext selectedPrefs', selectedPrefs);
-    console.log(
-      'PreferredAreas.onNavigateNext citizenPreferences.areas 1',
-      citizenPreferences.areas
-    );
-    citizenPreferences.areas = citizenPreferences.areas || [];
-    selectedPrefs.forEach((selectedArea: Area) => {
-      citizenPreferences.areas = addPref(citizenPreferences.areas, selectedArea, null);
-    });
+    // copy local preferences to higher level state (in CitizenCreateProfile)
+    citizenPreferences.areas = addPrefs<AreaInterface>(citizenPreferences.areas, selectedPrefs);
     console.log('PreferredAreas.onNavigateNext citizenPreferences 2', citizenPreferences);
     setCitizenPreferences(citizenPreferences);
 
