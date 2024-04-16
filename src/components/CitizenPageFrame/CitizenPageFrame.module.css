@@ -1,4 +1,21 @@
 .citizenPageFrame {
+  @media (max-width: $mantine-breakpoint-xs) {
+    width: 90%;
+  }
+  @media (max-width: $mantine-breakpoint-sm) {
+    width: 90%;
+  }
+  @media (max-width: $mantine-breakpoint-md) {
+    width: 80%;
+  }
+  @media (max-width: $mantine-breakpoint-lg) {
+    width: 80%;
+  }
+  @media (min-width: $mantine-breakpoint-xl) {
+    width: 70%;
+  }
+
+  border: 1px solid red;
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-size: rem(25px);
   /* max-width: 393px; */
