@@ -12,6 +12,9 @@ export class MockCategory extends ModelBase implements CategoryInterface {
 export const getCategsLvl1 = (): CategoryInterface[] =>
   MockCategs.filter((categ: CategoryInterface) => !categ.parentCategory);
 
+export const getCategsLvl2 = (): CategoryInterface[] =>
+  MockCategs.filter((categ: CategoryInterface) => !!categ.parentCategory);
+
 export const MockCategs: MockCategory[] = [
   {
     name: 'CONCERTS',

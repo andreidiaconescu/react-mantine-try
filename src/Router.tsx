@@ -3,6 +3,7 @@ import { HomePage } from './pages/Home.page';
 import { PreferredAreas } from './pages/PreferredAreas.page';
 import { PreferredCategsLvl1 } from './pages/PreferredCategsLvl1.page';
 import { CitizenCreateProfile } from './components/CitizenCreateProfile/CitizenCreateProfile';
+import { PreferredCategsLvl2 } from './pages/PreferredCategsLvl2.page';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
           {
             path: 'preferred-categs-lvl1',
             element: <PreferredCategsLvl1 />,
+          },
+          {
+            path: 'preferred-categs-lvl2',
+            element: <PreferredCategsLvl2 />,
           },
         ],
       },
