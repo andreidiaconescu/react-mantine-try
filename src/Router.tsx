@@ -5,6 +5,7 @@ import { PreferredCategsLvl1 } from './pages/PreferredCategsLvl1.page';
 import { CitizenCreateProfile } from './components/CitizenCreateProfile/CitizenCreateProfile';
 import { PreferredCategsLvl2 } from './pages/PreferredCategsLvl2.page';
 import { PreferredAudiences } from './pages/PreferredAudiences.page';
+import { PreferredCulturalCreators } from './pages/PreferredCulturalCreators.page';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
           {
             path: 'preferred-audiences',
             element: <PreferredAudiences />,
+          },
+          {
+            path: 'preferred-cultural-creators',
+            element: <PreferredCulturalCreators />,
           },
         ],
       },

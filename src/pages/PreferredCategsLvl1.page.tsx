@@ -30,19 +30,7 @@ export function PreferredCategsLvl1() {
     removePref(selectedPrefs, selectedDataItem, setSelectedPrefs);
   };
 
-  const onNavigatePrev = (nextRoute: string) => {
-    // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.categoriesLvl1 = addPrefs<CategoryInterface>(
-      citizenPreferences.categoriesLvl1,
-      selectedPrefs
-    );
-    console.log('PreferredCategsLvl1.onNavigateNext citizenPreferences 2', citizenPreferences);
-    setCitizenPreferences(citizenPreferences);
-
-    navigate(nextRoute);
-  };
-
-  const onNavigateNext = (nextRoute: string) => {
+  const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
     citizenPreferences.categoriesLvl1 = addPrefs<CategoryInterface>(
       citizenPreferences.categoriesLvl1,
@@ -73,8 +61,8 @@ export function PreferredCategsLvl1() {
           <CitizenCreateProfileNavigate
             next
             previous
-            onNavigatePrev={() => onNavigatePrev('/citizen/create-profile/preferred-areas')}
-            onNavigateNext={() => onNavigateNext('/citizen/create-profile/preferred-categs-lvl2')}
+            onNavigatePrev={() => onNavigate('/citizen/create-profile/preferred-areas')}
+            onNavigateNext={() => onNavigate('/citizen/create-profile/preferred-categs-lvl2')}
           />
         </div>
       </CitizenPageFrame>

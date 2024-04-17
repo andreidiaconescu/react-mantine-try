@@ -1,4 +1,5 @@
 import { ModelBase } from '@/models/ModelBase';
+import { arePrefsEqual } from '../models/utils';
 
 export const addPref = (
   destCollection: ModelBase[],
@@ -10,12 +11,7 @@ export const addPref = (
     destCollection = [];
   }
 
-  if (
-    !destCollection.find(
-      (alreadySelItem) =>
-        alreadySelItem.termCode && alreadySelItem.termCode === selectedDataItem.termCode
-    )
-  ) {
+  if (!destCollection.find((alreadySelItem) => arePrefsEqual(alreadySelItem, selectedDataItem))) {
     updatedCollection = [...destCollection, selectedDataItem];
     if (setPrefsInState) {
       setPrefsInState(updatedCollection);
@@ -46,8 +42,7 @@ export const removePref = (
   }
 
   const updatedCollection = destCollection.filter(
-    (alreadySelItem) =>
-      alreadySelItem.termCode && alreadySelItem.termCode !== selectedDataItem.termCode
+    (alreadySelItem) => !arePrefsEqual(alreadySelItem, selectedDataItem)
   );
   if (setPrefsInState) {
     setPrefsInState([...updatedCollection]);

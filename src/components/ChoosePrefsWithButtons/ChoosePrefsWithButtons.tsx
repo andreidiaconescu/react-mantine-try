@@ -8,6 +8,7 @@ import classesStyle2 from './ChoosePrefsWithButtons.style2.module.css';
 import mantineButtonStylesDefault from './mantinePrefsButton.module.css';
 import mantineButtonStyles2 from './mantinePrefsButton.style2.module.css';
 import { PrefsWithButtonsStyle } from './PrefsWithButtonsStyle.enum';
+import { arePrefsEqual } from '@/models/utils';
 // import { MockArea } from '../../data/mock/mock-areas';
 
 export function ChoosePrefsWithButtons({
@@ -40,8 +41,7 @@ export function ChoosePrefsWithButtons({
   const mantineButtonStyles = styleConfig.mantineButtonsStyle[styleChoice];
 
   const isPrefSelected = (pref: any) =>
-    Array.isArray(selectedPrefs) &&
-    selectedPrefs.find((selPref) => pref.termCode && pref.termCode === selPref.termCode);
+    Array.isArray(selectedPrefs) && selectedPrefs.find((selPref) => arePrefsEqual(pref, selPref));
 
   const filterPrefs = (filterBy: string) => [
     ...prefs.filter((pref: any) => {

@@ -31,7 +31,7 @@ export function PreferredAudiences() {
     removePref(selectedPrefs, selectedDataItem, setSelectedPrefs);
   };
 
-  const onNavigateNext = (nextRoute: string) => {
+  const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
     citizenPreferences.audiences = addPrefs<AudienceInterface>(
       citizenPreferences.audiences,
@@ -64,7 +64,8 @@ export function PreferredAudiences() {
           <CitizenCreateProfileNavigate
             next
             previous
-            onNavigatePrev={() => onNavigateNext('/citizen/create-profile/preferred-categs-lvl2')}
+            onNavigatePrev={() => onNavigate('/citizen/create-profile/preferred-categs-lvl2')}
+            onNavigateNext={() => onNavigate('/citizen/create-profile/preferred-cultural-creators')}
           />
         </div>
       </CitizenPageFrame>

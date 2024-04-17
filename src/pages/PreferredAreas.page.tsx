@@ -30,7 +30,7 @@ export function PreferredAreas() {
     removePref(selectedPrefs, selectedDataItem, setSelectedPrefs);
   };
 
-  const onNavigateNext = (nextRoute: string) => {
+  const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
     citizenPreferences.areas = addPrefs<AreaInterface>(citizenPreferences.areas, selectedPrefs);
     console.log('PreferredAreas.onNavigateNext citizenPreferences 2', citizenPreferences);
@@ -59,8 +59,7 @@ export function PreferredAreas() {
           {/* <CitizenCreateProfileNavigate next previous /> */}
           <CitizenCreateProfileNavigate
             next
-            previous
-            onNavigateNext={() => onNavigateNext('/citizen/create-profile/preferred-categs-lvl1')}
+            onNavigateNext={() => onNavigate('/citizen/create-profile/preferred-categs-lvl1')}
           />
         </div>
       </CitizenPageFrame>
