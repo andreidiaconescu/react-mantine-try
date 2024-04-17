@@ -1,0 +1,35 @@
+.choosePrefsWithButtons {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .searchInput {
+    width: 100%;
+
+    /* Auto layout */
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+
+    height: rem(44px);
+
+    /* Inside auto layout */
+    flex: none;
+    flex-grow: 0;
+  }
+
+  .prefButtons {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 100%;
+
+    .prefButton {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+      height: rem(54px);
+    }
+  }
+}

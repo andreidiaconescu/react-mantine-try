@@ -1,8 +1,8 @@
-import { Area } from '@/models/Area.interface';
+import { AreaInterface } from '@/models/Area.interface';
 import { ModelBase } from '@/models/ModelBase';
 
 /* eslint-disable max-classes-per-file */
-export class MockArea extends ModelBase implements Area {
+export class MockArea extends ModelBase implements AreaInterface {
   public name: string;
   public termCode: string;
   public version: number;

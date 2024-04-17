@@ -1,27 +1,28 @@
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import classes from './PreferredCategsLvl2.module.css';
+import classes from './PreferredAudiences.module.css';
 
 import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame';
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockCategory, getCategsLvl2 } from '../data/mock/mock-categs';
+import { MockAudiences } from '../data/mock/mock-audiences';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
-import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { CategoryInterface } from '@/models/Category.interface';
+import { AudienceInterface } from '@/models/Audience.interface';
+import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
+import { PrefsWithButtonsStyle } from '@/components/ChoosePrefsWithButtons/PrefsWithButtonsStyle.enum';
 
-export function PreferredCategsLvl2() {
-  const prefs: MockCategory[] = getCategsLvl2();
+export function PreferredAudiences() {
+  const prefs: AudienceInterface[] = MockAudiences;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   useEffect(() => {
     // copy preferences from higher level state (in CitizenCreateProfile component) to local state, if they changed in the high level state
-    setSelectedPrefs(citizenPreferences.categoriesLvl2 || []);
-  }, [citizenPreferences.categoriesLvl2]);
+    setSelectedPrefs(citizenPreferences.audiences || []);
+  }, [citizenPreferences.audiences]);
   const navigate = useNavigate();
-  console.log('PreferredCategsLvl2 citizenPreferences', citizenPreferences);
+  console.log('PreferredAudiences citizenPreferences', citizenPreferences);
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);
@@ -30,25 +31,13 @@ export function PreferredCategsLvl2() {
     removePref(selectedPrefs, selectedDataItem, setSelectedPrefs);
   };
 
-  const onNavigatePrev = (nextRoute: string) => {
-    // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.categoriesLvl2 = addPrefs<CategoryInterface>(
-      citizenPreferences.categoriesLvl2,
-      selectedPrefs
-    );
-    console.log('PreferredCategsLvl2.onNavigateNext citizenPreferences 2', citizenPreferences);
-    setCitizenPreferences(citizenPreferences);
-
-    navigate(nextRoute);
-  };
-
   const onNavigateNext = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.categoriesLvl2 = addPrefs<CategoryInterface>(
-      citizenPreferences.categoriesLvl2,
+    citizenPreferences.audiences = addPrefs<AudienceInterface>(
+      citizenPreferences.audiences,
       selectedPrefs
     );
-    console.log('PreferredAreas.onNavigateNext citizenPreferences 2', citizenPreferences);
+    console.log('PreferredAudiences.onNavigateNext citizenPreferences 2', citizenPreferences);
     setCitizenPreferences(citizenPreferences);
 
     navigate(nextRoute);
@@ -58,23 +47,24 @@ export function PreferredCategsLvl2() {
     <>
       <CitizenPageFrame>
         <CitizenHeader />
-        <CitizenCreateProfileProgressBar progressValue={40}></CitizenCreateProfileProgressBar>
+        <CitizenCreateProfileProgressBar progressValue={60}></CitizenCreateProfileProgressBar>
         <div className={classes.pageContent}>
-          <div className={classes.contentTitle}>Vos goûts culturels</div>
+          <div className={classes.contentTitle}>Vos partenaires de sorties</div>
           <div className={classes.firstParagraph}>
-            Sélectionnez les styles qui vous intéressent.
+            Indiquez avec qui vous partagez généralement vos activités culturelles.
           </div>
           <ChoosePrefsWithButtons
             prefs={prefs}
             selectedPrefs={selectedPrefs}
             onSelectPref={onSelectPref}
             onDeSelectPref={onDeSelectPref}
+            styleChoice={PrefsWithButtonsStyle.Style2}
           />
+          {/* <CitizenCreateProfileNavigate next previous /> */}
           <CitizenCreateProfileNavigate
             next
             previous
-            onNavigatePrev={() => onNavigatePrev('/citizen/create-profile/preferred-categs-lvl1')}
-            onNavigateNext={() => onNavigateNext('/citizen/create-profile/preferred-audiences')}
+            onNavigatePrev={() => onNavigateNext('/citizen/create-profile/preferred-categs-lvl2')}
           />
         </div>
       </CitizenPageFrame>

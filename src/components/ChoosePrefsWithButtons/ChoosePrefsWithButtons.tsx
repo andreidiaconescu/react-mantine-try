@@ -3,8 +3,11 @@ import { PropsWithChildren, useState } from 'react';
 import { Button, TextInput, rem } from '@mantine/core';
 import { IconSearch, IconCheck } from '@tabler/icons-react';
 
-import classes from './ChoosePrefsWithButtons.module.css';
-import mantineButtonStyles from './mantinePrefsButton.module.css';
+import classesDefault from './ChoosePrefsWithButtons.module.css';
+import classesStyle2 from './ChoosePrefsWithButtons.style2.module.css';
+import mantineButtonStylesDefault from './mantinePrefsButton.module.css';
+import mantineButtonStyles2 from './mantinePrefsButton.style2.module.css';
+import { PrefsWithButtonsStyle } from './PrefsWithButtonsStyle.enum';
 // import { MockArea } from '../../data/mock/mock-areas';
 
 export function ChoosePrefsWithButtons({
@@ -12,6 +15,7 @@ export function ChoosePrefsWithButtons({
   selectedPrefs,
   onSelectPref,
   onDeSelectPref,
+  styleChoice = PrefsWithButtonsStyle.Default,
 }: PropsWithChildren<{
   prefs: any[];
   selectedPrefs?: any[];
@@ -19,8 +23,21 @@ export function ChoosePrefsWithButtons({
   onDeSelectPref?: (selectedPref: any) => any;
   searchedPref?: string;
   onChangeSearchPref?: (searchPrefChanged: string) => any;
+  styleChoice?: PrefsWithButtonsStyle;
 }>) {
   const [searchedPref, setSearchedPref] = useState('');
+  const styleConfig = {
+    mainStyle: {
+      [PrefsWithButtonsStyle.Default]: classesDefault,
+      [PrefsWithButtonsStyle.Style2]: classesStyle2,
+    },
+    mantineButtonsStyle: {
+      [PrefsWithButtonsStyle.Default]: mantineButtonStylesDefault,
+      [PrefsWithButtonsStyle.Style2]: mantineButtonStyles2,
+    },
+  };
+  const classes = styleConfig.mainStyle[styleChoice];
+  const mantineButtonStyles = styleConfig.mantineButtonsStyle[styleChoice];
 
   const isPrefSelected = (pref: any) =>
     Array.isArray(selectedPrefs) &&
