@@ -12,5 +12,6 @@ export class CitizenProfilePreferences {
   culturalCreators?: CulturalCreatorInterface[];
   culturalOperators?: CulturalOperatorInterface[];
   registerEmail?: string;
+  acceptUseExistingEmail?: boolean;
   acceptShareProfileWithOperator?: boolean;
 }

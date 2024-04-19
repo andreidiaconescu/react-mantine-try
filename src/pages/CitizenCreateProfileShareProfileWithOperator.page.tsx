@@ -47,7 +47,7 @@ export function CitizenCreateProfileShareProfileWithOperator() {
           <div className={classes.contentTitle}>Création de votre profil Dcouvr</div>
           <div className={classes.firstParagraph}>
             Profitez d’une expérience personnalisée en partageant vos préférence Dcouvr avecLe Soir
-            *
+            <span className={classes.legendAsterisk}>*</span>
           </div>
           <Checkbox
             label="J'autorise le site Le Soir à importer mes préférences Dcouvr afin de me recommander articles et contenus culturels sur Lesoir.be"
@@ -56,6 +56,10 @@ export function CitizenCreateProfileShareProfileWithOperator() {
             onChange={onChangeAcceptShareProfileWithOperator}
             checked={acceptShareProfileWithOperator}
           />
+          <div className={classes.legend}>
+            <span className={classes.legendAsterisk}>*</span> Si vous ne donnez pas l’autorisation
+            d’importation de vos préférences, le service Dcouvr ne sera pas opérationnel.
+          </div>
           <Button
             variant="filled"
             className={classes.submitProfileButton}
@@ -64,7 +68,7 @@ export function CitizenCreateProfileShareProfileWithOperator() {
               label: classes.but_submit_profile_sel_label,
             }}
             onClick={() => {
-              onNavigate('/citizen/create-profile/share-profile-with-operator');
+              onNavigate('/citizen/create-profile/activate-account-email-sent');
             }}
           >
             Valider

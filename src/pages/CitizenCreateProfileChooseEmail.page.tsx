@@ -14,6 +14,7 @@ export function CitizenCreateProfileChooseEmail() {
   useEffect(() => {
     // copy registerEmail from higher level state (in CitizenCreateProfile component) to local state, if they changed in the high level state
     setRegisterEmail(citizenPreferences.registerEmail || registerEmail);
+    setAcceptUseExistingEmail(citizenPreferences.acceptUseExistingEmail || acceptUseExistingEmail);
   }, [citizenPreferences.registerEmail]);
   const navigate = useNavigate();
   console.log('CitizenCreateProfileChooseEmail citizenPreferences', citizenPreferences);
@@ -25,6 +26,7 @@ export function CitizenCreateProfileChooseEmail() {
   const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
     citizenPreferences.registerEmail = registerEmail;
+    citizenPreferences.acceptUseExistingEmail = acceptUseExistingEmail;
     console.log(
       'CitizenCreateProfileChooseEmail.onNavigateNext citizenPreferences 2',
       citizenPreferences

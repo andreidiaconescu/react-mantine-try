@@ -9,6 +9,7 @@ import { PreferredCulturalCreators } from './pages/PreferredCulturalCreators.pag
 import { PreferredCulturalOperators } from './pages/PreferredCulturalOperators.page';
 import { CitizenCreateProfileChooseEmail } from './pages/CitizenCreateProfileChooseEmail.page';
 import { CitizenCreateProfileShareProfileWithOperator } from './pages/CitizenCreateProfileShareProfileWithOperator.page';
+import { CitizenCreateProfileActivateAccountEmailSent } from './pages/CitizenCreateProfileActivateAccountEmailSent.page';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
           {
             path: 'share-profile-with-operator',
             element: <CitizenCreateProfileShareProfileWithOperator />,
+          },
+          {
+            path: 'activate-account-email-sent',
+            element: <CitizenCreateProfileActivateAccountEmailSent />,
           },
         ],
       },
