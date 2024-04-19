@@ -1,0 +1,29 @@
+.emailPartlyHidden {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: rem(25px);
+  /* max-width: 393px; */
+
+  /* @media (max-width: $mantine-breakpoint-md) {
+    font-size: rem(50px);
+  } */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .emailHolder {
+    width: 100%;
+
+    /* Body/Bold/Text-MD */
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+
+    color: #212529;
+
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+}

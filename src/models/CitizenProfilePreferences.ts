@@ -11,4 +11,6 @@ export class CitizenProfilePreferences {
   audiences?: AudienceInterface[];
   culturalCreators?: CulturalCreatorInterface[];
   culturalOperators?: CulturalOperatorInterface[];
+  registerEmail?: string;
+  acceptShareProfileWithOperator?: boolean;
 }

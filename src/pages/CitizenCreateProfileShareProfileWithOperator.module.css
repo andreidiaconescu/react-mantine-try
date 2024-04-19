@@ -1,0 +1,111 @@
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  margin-top: rem(20px);
+  width: 90%;
+
+  .contentTitle {
+    /* Vos lieux de sorties */
+
+    width: 100%;
+    height: rem(36px);
+
+    /* Headings/MD/Bold */
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: rem(24px);
+    line-height: 150%;
+    /* identical to box height, or 36px */
+
+    color: #212529;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .subTitleRemark {
+    width: 100%;
+    height: rem(18px);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .firstParagraph {
+    /* Sélectionnez les villes, régions et provinces où vous profitez habituellement de vos activités culturelles. */
+
+    margin-top: rem(12px);
+    width: 100%;
+    /* height: rem(72px); */
+
+    /* Body/Regular/Text-MD */
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    /* or 24px */
+
+    color: #495057;
+
+    /* Inside auto layout */
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .checkboxAcceptShareProfileWithOperator {
+    margin-top: rem(20px);
+  }
+
+  .submitProfileButton {
+    width: 100%;
+    margin-top: 10%;
+  }
+}
+
+.but_submit_profile_sel_root {
+  align-items: center;
+  padding: 16px 24px;
+  gap: 8px;
+
+  height: 56px;
+
+  background: linear-gradient(180deg, #495057 0%, rgba(73, 80, 87, 0) 100%), #212529;
+  &:hover {
+    background: linear-gradient(180deg, #495057 0%, rgba(73, 80, 87, 0) 100%), #444444;
+  }
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+
+  &:disabled,
+  &[data-disabled] {
+    background: #dee2e6;
+  }
+}
+
+.but_submit_profile_sel_label {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.nav_link_use_other_email_root {
+  align-self: center;
+  width: 50%;
+}
+.nav_link_use_other_email_label {
+  text-decoration: underline;
+  font-size: 16px;
+  font-weight: 500;
+  color: #495057;
+}
+.nav_link_use_other_email_body {
+  text-align: center;
+}

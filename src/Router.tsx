@@ -7,6 +7,8 @@ import { PreferredCategsLvl2 } from './pages/PreferredCategsLvl2.page';
 import { PreferredAudiences } from './pages/PreferredAudiences.page';
 import { PreferredCulturalCreators } from './pages/PreferredCulturalCreators.page';
 import { PreferredCulturalOperators } from './pages/PreferredCulturalOperators.page';
+import { CitizenCreateProfileChooseEmail } from './pages/CitizenCreateProfileChooseEmail.page';
+import { CitizenCreateProfileShareProfileWithOperator } from './pages/CitizenCreateProfileShareProfileWithOperator.page';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
           {
             path: 'preferred-cultural-operators',
             element: <PreferredCulturalOperators />,
+          },
+          {
+            path: 'choose-email',
+            element: <CitizenCreateProfileChooseEmail />,
+          },
+          {
+            path: 'share-profile-with-operator',
+            element: <CitizenCreateProfileShareProfileWithOperator />,
           },
         ],
       },

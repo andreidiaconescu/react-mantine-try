@@ -68,6 +68,7 @@ export function PreferredCulturalOperators() {
             next
             previous
             onNavigatePrev={() => onNavigate('/citizen/create-profile/preferred-cultural-creators')}
+            onNavigateNext={() => onNavigate('/citizen/create-profile/choose-email')}
           />
         </div>
       </CitizenPageFrame>
