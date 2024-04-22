@@ -10,6 +10,7 @@ import { PreferredCulturalOperators } from './pages/PreferredCulturalOperators.p
 import { CitizenCreateProfileChooseEmail } from './pages/CitizenCreateProfileChooseEmail.page';
 import { CitizenCreateProfileShareProfileWithOperator } from './pages/CitizenCreateProfileShareProfileWithOperator.page';
 import { CitizenCreateProfileActivateAccountEmailSent } from './pages/CitizenCreateProfileActivateAccountEmailSent.page';
+import { CitizenCreateProfileInitialCarousel } from './pages/CitizenCreateProfileInitialCarousel.page';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: 'create-profile',
         element: <CitizenCreateProfile />,
         children: [
+          {
+            path: 'initial-carousel',
+            element: <CitizenCreateProfileInitialCarousel />,
+          },
           {
             path: 'preferred-areas',
             element: <PreferredAreas />,
