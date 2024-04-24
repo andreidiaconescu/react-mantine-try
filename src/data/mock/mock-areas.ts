@@ -1,14 +1,8 @@
-import { AreaInterface } from '@/models/Area.interface';
-import { ModelBase } from '@/models/ModelBase';
+import { Area } from '@/models/Area';
 
 /* eslint-disable max-classes-per-file */
-export class MockArea extends ModelBase implements AreaInterface {
-  public name: string;
-  public termCode: string;
-  public version: number;
-}
 
-export const MockAreas: MockArea[] = [
+export const MockAreas: Area[] = [
   {
     name: 'Région de Bruxelles-Capitale',
     termCode: 'LOC01',

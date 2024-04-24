@@ -1,19 +1,28 @@
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import classes from './PreferredAreas.module.css';
 
+import classes from './PreferredAreas.module.css';
 import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame';
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockAreas } from '../data/mock/mock-areas';
+// import { MockAreas } from '../data/mock/mock-areas';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { AreaInterface } from '@/models/Area.interface';
+import { Area } from '@/models/Area';
 import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
+import { useAreas } from '../data/hooks/useAreas';
+import { getCurrentLocale } from '@/i18n/currentLocale';
 
 export function PreferredAreas() {
-  const prefs: AreaInterface[] = MockAreas;
+  const currentLocale: string = getCurrentLocale();
+  const { loading: areasLoading, error: areasLoadError, data: areasData } = useAreas(currentLocale);
+
+  console.log('PreferredAreas GQL Loading areasLoading', areasLoading);
+  console.log('PreferredAreas GQL areasLoadError: ', areasLoadError);
+  console.log('PreferredAreas GQL areasData: ', areasData);
+
+  const prefs: Area[] = areasData;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   useEffect(() => {
@@ -22,6 +31,13 @@ export function PreferredAreas() {
   }, [citizenPreferences.areas]);
   const navigate = useNavigate();
   console.log('PreferredAreas citizenPreferences', citizenPreferences);
+
+  if (areasLoading) {
+    return <h3>Loading</h3>;
+  }
+  if (areasLoadError) {
+    return <h3>{areasLoadError.message}</h3>;
+  }
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);
@@ -32,7 +48,7 @@ export function PreferredAreas() {
 
   const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.areas = addPrefs<AreaInterface>(citizenPreferences.areas, selectedPrefs);
+    citizenPreferences.areas = addPrefs<Area>(citizenPreferences.areas, selectedPrefs);
     console.log('PreferredAreas.onNavigateNext citizenPreferences 2', citizenPreferences);
     setCitizenPreferences(citizenPreferences);
 
