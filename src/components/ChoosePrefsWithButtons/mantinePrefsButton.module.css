@@ -4,7 +4,7 @@
 }
 
 .inner_not_sel {
-  max-width: 185px;
+  max-width: 400px;
   text-align: left;
 }
 .label_not_sel {
@@ -23,7 +23,7 @@
 }
 
 .inner_sel {
-  max-width: 185px;
+  max-width: 400px;
   text-align: left;
 }
 .label_sel {

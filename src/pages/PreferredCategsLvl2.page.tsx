@@ -6,14 +6,26 @@ import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { getCategsLvl2 } from '../data/mock/mock-categs';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
 import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
 import { Category } from '@/models/Category';
+import { getCurrentLocale } from '@/i18n/currentLocale';
+import { useCategs } from '@/data/hooks/useCategs';
 
 export function PreferredCategsLvl2() {
-  const prefs: Category[] = getCategsLvl2();
+  const currentLocale: string = getCurrentLocale();
+  const {
+    loading: categsLoading,
+    error: categsLoadError,
+    data: categsData,
+  } = useCategs(2, currentLocale);
+
+  console.log('PreferredCategsLvl1 GQL Loading categsLoading', categsLoading);
+  console.log('PreferredCategsLvl1 GQL categsLoadError: ', categsLoadError);
+  console.log('PreferredCategsLvl1 GQL categsData: ', categsData);
+
+  const prefs: Category[] = categsData;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   useEffect(() => {
@@ -22,6 +34,13 @@ export function PreferredCategsLvl2() {
   }, [citizenPreferences.categoriesLvl2]);
   const navigate = useNavigate();
   console.log('PreferredCategsLvl2 citizenPreferences', citizenPreferences);
+
+  if (categsLoadError) {
+    return <h3>{categsLoadError.message}</h3>;
+  }
+  if (categsLoading) {
+    return <h3>Loading</h3>;
+  }
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);

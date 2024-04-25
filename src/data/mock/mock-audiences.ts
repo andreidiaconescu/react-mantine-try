@@ -1,14 +1,6 @@
-import { AudienceInterface } from '@/models/Audience.interface';
-import { ModelBase } from '@/models/ModelBase';
+import { Audience } from '@/models/Audience';
 
-/* eslint-disable max-classes-per-file */
-export class MockAudience extends ModelBase implements AudienceInterface {
-  public name: string;
-  public termCode: string;
-  public version: number;
-}
-
-export const MockAudiences: MockAudience[] = [
+export const MockAudiences: Audience[] = [
   {
     name: 'Amis',
     termCode: 'AUD01',

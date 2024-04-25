@@ -6,15 +6,27 @@ import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockAudiences } from '../data/mock/mock-audiences';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { AudienceInterface } from '@/models/Audience.interface';
+import { Audience } from '@/models/Audience';
 import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
 import { PrefsWithButtonsStyle } from '@/components/ChoosePrefsWithButtons/PrefsWithButtonsStyle.enum';
+import { getCurrentLocale } from '@/i18n/currentLocale';
+import { useAudiences } from '@/data/hooks/useAudiences';
 
 export function PreferredAudiences() {
-  const prefs: AudienceInterface[] = MockAudiences;
+  const currentLocale: string = getCurrentLocale();
+  const {
+    loading: audiencesLoading,
+    error: audiencesLoadError,
+    data: audiencesData,
+  } = useAudiences(currentLocale);
+
+  console.log('PreferredAudiences GQL Loading audiencesLoading', audiencesLoading);
+  console.log('PreferredAudiences GQL audiencesLoadError: ', audiencesLoadError);
+  console.log('PreferredAudiences GQL audiencesData: ', audiencesData);
+
+  const prefs: Audience[] = audiencesData;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   useEffect(() => {
@@ -23,6 +35,13 @@ export function PreferredAudiences() {
   }, [citizenPreferences.audiences]);
   const navigate = useNavigate();
   console.log('PreferredAudiences citizenPreferences', citizenPreferences);
+
+  if (audiencesLoadError) {
+    return <h3>{audiencesLoadError.message}</h3>;
+  }
+  if (audiencesLoading) {
+    return <h3>Loading</h3>;
+  }
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);
@@ -33,10 +52,7 @@ export function PreferredAudiences() {
 
   const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.audiences = addPrefs<AudienceInterface>(
-      citizenPreferences.audiences,
-      selectedPrefs
-    );
+    citizenPreferences.audiences = addPrefs<Audience>(citizenPreferences.audiences, selectedPrefs);
     console.log('PreferredAudiences.onNavigateNext citizenPreferences 2', citizenPreferences);
     setCitizenPreferences(citizenPreferences);
 
