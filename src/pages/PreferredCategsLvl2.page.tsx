@@ -6,14 +6,14 @@ import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockCategory, getCategsLvl2 } from '../data/mock/mock-categs';
+import { getCategsLvl2 } from '../data/mock/mock-categs';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
 import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { CategoryInterface } from '@/models/Category.interface';
+import { Category } from '@/models/Category';
 
 export function PreferredCategsLvl2() {
-  const prefs: MockCategory[] = getCategsLvl2();
+  const prefs: Category[] = getCategsLvl2();
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   useEffect(() => {
@@ -32,7 +32,7 @@ export function PreferredCategsLvl2() {
 
   const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.categoriesLvl2 = addPrefs<CategoryInterface>(
+    citizenPreferences.categoriesLvl2 = addPrefs<Category>(
       citizenPreferences.categoriesLvl2,
       selectedPrefs
     );

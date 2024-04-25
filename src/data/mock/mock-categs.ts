@@ -1,21 +1,12 @@
-import { CategoryInterface } from '@/models/Category.interface';
-import { ModelBase } from '@/models/ModelBase';
+import { Category } from '@/models/Category';
 
-/* eslint-disable max-classes-per-file */
-export class MockCategory extends ModelBase implements CategoryInterface {
-  public name: string;
-  public termCode: string;
-  public version: number;
-  parentCategory?: CategoryInterface;
-}
+export const getCategsLvl1 = (): Category[] =>
+  MockCategs.filter((categ: Category) => !categ.parentCategory);
 
-export const getCategsLvl1 = (): CategoryInterface[] =>
-  MockCategs.filter((categ: CategoryInterface) => !categ.parentCategory);
+export const getCategsLvl2 = (): Category[] =>
+  MockCategs.filter((categ: Category) => !!categ.parentCategory);
 
-export const getCategsLvl2 = (): CategoryInterface[] =>
-  MockCategs.filter((categ: CategoryInterface) => !!categ.parentCategory);
-
-export const MockCategs: MockCategory[] = [
+export const MockCategs: Category[] = [
   {
     name: 'CONCERTS',
     termCode: 'CAT01-00',

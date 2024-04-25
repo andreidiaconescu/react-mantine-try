@@ -32,11 +32,11 @@ export function PreferredAreas() {
   const navigate = useNavigate();
   console.log('PreferredAreas citizenPreferences', citizenPreferences);
 
-  if (areasLoading) {
-    return <h3>Loading</h3>;
-  }
   if (areasLoadError) {
     return <h3>{areasLoadError.message}</h3>;
+  }
+  if (areasLoading) {
+    return <h3>Loading</h3>;
   }
 
   const onSelectPref = (selectedDataItem: any) => {

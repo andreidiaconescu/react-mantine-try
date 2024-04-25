@@ -1,13 +1,13 @@
 import { Area } from './Area';
 import { AudienceInterface } from './Audience.interface';
-import { CategoryInterface } from './Category.interface';
+import { Category } from './Category';
 import { CulturalCreatorInterface } from './CulturalCreator.interface';
 import { CulturalOperatorInterface } from './CulturalOperator.interface';
 
 export class CitizenProfilePreferences {
   areas?: Area[];
-  categoriesLvl1?: CategoryInterface[];
-  categoriesLvl2?: CategoryInterface[];
+  categoriesLvl1?: Category[];
+  categoriesLvl2?: Category[];
   audiences?: AudienceInterface[];
   culturalCreators?: CulturalCreatorInterface[];
   culturalOperators?: CulturalOperatorInterface[];
