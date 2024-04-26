@@ -1,13 +1,7 @@
-import { CulturalOperatorInterface } from '@/models/CulturalOperator.interface';
-import { ModelBase } from '@/models/ModelBase';
+import { CulturalOperator } from '@/models/CulturalOperator';
 
 /* eslint-disable max-classes-per-file */
-export class MockCulturalOperator extends ModelBase implements CulturalOperatorInterface {
-  public _id: string;
-  public name: string;
-}
-
-export const MockCulturalOperators: MockCulturalOperator[] = [
+export const MockCulturalOperators: CulturalOperator[] = [
   {
     _id: 'id_co_1',
     name: 'Bozar (Palais des Beaux-Arts)',

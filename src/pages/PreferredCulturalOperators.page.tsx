@@ -6,14 +6,30 @@ import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockCulturalOperators } from '../data/mock/mock-cultural-operators';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { CulturalOperatorInterface } from '@/models/CulturalOperator.interface';
+import { CulturalOperator } from '@/models/CulturalOperator';
 import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
+import { useCulturalOperators } from '@/data/hooks/useCulturalOperators';
 
 export function PreferredCulturalOperators() {
-  const prefs: CulturalOperatorInterface[] = MockCulturalOperators;
+  const {
+    loading: culturalOperatorsLoading,
+    error: culturalOperatorsLoadError,
+    data: culturalOperatorsData,
+  } = useCulturalOperators();
+
+  console.log(
+    'PreferredCulturalOperators GQL Loading culturalOperatorsLoading',
+    culturalOperatorsLoading
+  );
+  console.log(
+    'PreferredCulturalOperators GQL culturalOperatorsLoadError: ',
+    culturalOperatorsLoadError
+  );
+  console.log('PreferredCulturalOperators GQL culturalOperatorsData: ', culturalOperatorsData);
+
+  const prefs: CulturalOperator[] = culturalOperatorsData;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   useEffect(() => {
@@ -22,6 +38,13 @@ export function PreferredCulturalOperators() {
   }, [citizenPreferences.culturalOperators]);
   const navigate = useNavigate();
   console.log('PreferredCulturalOperators citizenPreferences', citizenPreferences);
+
+  if (culturalOperatorsLoadError) {
+    return <h3>{culturalOperatorsLoadError.message}</h3>;
+  }
+  if (culturalOperatorsLoading) {
+    return <h3>Loading</h3>;
+  }
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);
@@ -32,7 +55,7 @@ export function PreferredCulturalOperators() {
 
   const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.culturalOperators = addPrefs<CulturalOperatorInterface>(
+    citizenPreferences.culturalOperators = addPrefs<CulturalOperator>(
       citizenPreferences.culturalOperators,
       selectedPrefs
     );
