@@ -1,7 +1,7 @@
 import { Area } from './Area';
 import { Audience } from './Audience';
 import { Category } from './Category';
-import { CulturalCreatorInterface } from './CulturalCreator.interface';
+import { CulturalCreator } from './CulturalCreator';
 import { CulturalOperatorInterface } from './CulturalOperator.interface';
 
 export class CitizenProfilePreferences {
@@ -9,7 +9,7 @@ export class CitizenProfilePreferences {
   categoriesLvl1?: Category[];
   categoriesLvl2?: Category[];
   audiences?: Audience[];
-  culturalCreators?: CulturalCreatorInterface[];
+  culturalCreators?: CulturalCreator[];
   culturalOperators?: CulturalOperatorInterface[];
   registerEmail?: string;
   acceptUseExistingEmail?: boolean;

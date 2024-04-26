@@ -1,13 +1,7 @@
-import { CulturalCreatorInterface } from '@/models/CulturalCreator.interface';
-import { ModelBase } from '@/models/ModelBase';
+import { CulturalCreator } from '@/models/CulturalCreator';
 
 /* eslint-disable max-classes-per-file */
-export class MockCulturalCreator extends ModelBase implements CulturalCreatorInterface {
-  public _id: string;
-  public name: string;
-}
-
-export const MockCulturalCreators: MockCulturalCreator[] = [
+export const MockCulturalCreators: CulturalCreator[] = [
   {
     _id: 'id_cc_1',
     name: 'Angèle',

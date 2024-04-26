@@ -6,14 +6,30 @@ import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenCreateProfileProgressBar } from '../components/CitizenCreateProfileProgressBar/CitizenCreateProfileProgressBar';
 import { ChoosePrefsWithButtons } from '../components/ChoosePrefsWithButtons/ChoosePrefsWithButtons';
-import { MockCulturalCreators } from '../data/mock/mock-cultural-creators';
 import { CitizenCreateProfileNavigate } from '../components/CitizenCreateProfileNavigate/CitizenCreateProfileNavigate';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
-import { CulturalCreatorInterface } from '@/models/CulturalCreator.interface';
+import { CulturalCreator } from '@/models/CulturalCreator';
 import { addPref, removePref, addPrefs } from '../state/pref.state.utils';
+import { useCulturalCreators } from '@/data/hooks/useCulturalCreators';
 
 export function PreferredCulturalCreators() {
-  const prefs: CulturalCreatorInterface[] = MockCulturalCreators;
+  const {
+    loading: culturalCreatorsLoading,
+    error: culturalCreatorsLoadError,
+    data: culturalCreatorsData,
+  } = useCulturalCreators();
+
+  console.log(
+    'PreferredCulturalCreators GQL Loading culturalCreatorsLoading',
+    culturalCreatorsLoading
+  );
+  console.log(
+    'PreferredCulturalCreators GQL culturalCreatorsLoadError: ',
+    culturalCreatorsLoadError
+  );
+  console.log('PreferredCulturalCreators GQL culturalCreatorsData: ', culturalCreatorsData);
+
+  const prefs: CulturalCreator[] = culturalCreatorsData;
   const [selectedPrefs, setSelectedPrefs] = useState([]);
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   useEffect(() => {
@@ -22,6 +38,13 @@ export function PreferredCulturalCreators() {
   }, [citizenPreferences.culturalCreators]);
   const navigate = useNavigate();
   console.log('PreferredCulturalCreators citizenPreferences', citizenPreferences);
+
+  if (culturalCreatorsLoadError) {
+    return <h3>{culturalCreatorsLoadError.message}</h3>;
+  }
+  if (culturalCreatorsLoading) {
+    return <h3>Loading</h3>;
+  }
 
   const onSelectPref = (selectedDataItem: any) => {
     addPref(selectedPrefs, selectedDataItem, setSelectedPrefs);
@@ -32,7 +55,7 @@ export function PreferredCulturalCreators() {
 
   const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
-    citizenPreferences.culturalCreators = addPrefs<CulturalCreatorInterface>(
+    citizenPreferences.culturalCreators = addPrefs<CulturalCreator>(
       citizenPreferences.culturalCreators,
       selectedPrefs
     );
