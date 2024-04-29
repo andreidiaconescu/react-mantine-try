@@ -1,0 +1,112 @@
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  margin-top: rem(20px);
+  width: 90%;
+
+  .contentTitle {
+    /* Vos lieux de sorties */
+
+    width: 100%;
+
+    /* Headings/MD/Bold */
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: rem(24px);
+    line-height: 150%;
+    /* identical to box height, or 36px */
+
+    color: #212529;
+
+    /* Inside auto layout */
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .subTitleRemark {
+    width: 100%;
+    height: rem(18px);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .firstParagraph {
+    margin-top: rem(12px);
+    width: 100%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    /* or 24px */
+
+    color: #495057;
+
+    /* Inside auto layout */
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .secondParagraph {
+    margin-top: rem(12px);
+    width: 100%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    /* or 24px */
+
+    color: #495057;
+
+    /* Inside auto layout */
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .thirdParagraph {
+    margin-top: rem(30px);
+    width: 100%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    /* or 24px */
+
+    color: #495057;
+
+    /* Inside auto layout */
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .emailActivateAccountHeadImage {
+    width: 100%;
+  }
+}
+
+/* Mantine specific classes */
+.linkResendEmail_root {
+  align-items: center;
+  gap: 8px;
+  width: 60%;
+
+  /* height: 56px; */
+
+  /* Inside auto layout */
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.linkResendEmail_label {
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: underline;
+}

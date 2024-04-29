@@ -40,7 +40,7 @@ export function useAreas(locale: string = getCurrentLocale()): {
     return { loading: false, error: null, data: MockAreas };
   }
 
-  const { loading, error, data: gqlData } = useQuery(GET_AREAS);
+  const { loading, error, data: gqlData } = useQuery(GET_AREAS, { fetchPolicy: 'no-cache' });
 
   let data = null;
   if (!loading && gqlData) {

@@ -147,9 +147,12 @@ export function useCategs(
     loading,
     error,
     data: gqlData,
-  } = useQuery(gql`
-    ${gqlQuery}
-  `);
+  } = useQuery(
+    gql`
+      ${gqlQuery}
+    `,
+    { fetchPolicy: 'no-cache' }
+  );
 
   let data = null;
   if (!loading && gqlData) {

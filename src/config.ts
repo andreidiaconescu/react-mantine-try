@@ -1,3 +1,3 @@
 export const appConfig = {
-  useMockData: false,
+  useMockData: true,
 };

@@ -71,9 +71,12 @@ export function useCulturalOperators(): {
     loading,
     error,
     data: gqlData,
-  } = useQuery(gql`
-    ${GET_CULTURAL_OPERATORS}
-  `);
+  } = useQuery(
+    gql`
+      ${GET_CULTURAL_OPERATORS}
+    `,
+    { fetchPolicy: 'no-cache' }
+  );
 
   let data = null;
   if (!loading && gqlData) {

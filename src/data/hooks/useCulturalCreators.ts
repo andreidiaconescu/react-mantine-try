@@ -75,9 +75,12 @@ export function useCulturalCreators(): {
     loading,
     error,
     data: gqlData,
-  } = useQuery(gql`
-    ${GET_CULTURAL_CREATORS}
-  `);
+  } = useQuery(
+    gql`
+      ${GET_CULTURAL_CREATORS}
+    `,
+    { fetchPolicy: 'no-cache' }
+  );
 
   let data = null;
   if (!loading && gqlData) {
