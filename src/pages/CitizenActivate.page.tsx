@@ -32,21 +32,21 @@ export function CitizenActivate() {
       citizenActivate(email: $citizenEmail, code: $citizenActivationCode)
     }
   `;
-  const [activateCitizen, { data, loading, error }] = useMutation(ACTIVATE_CITIZEN);
+  const [activateCitizenRunMutation, { data, loading, error }] = useMutation(ACTIVATE_CITIZEN);
 
   console.log('CitizenActivate data', data);
   console.log('CitizenActivate loading', loading);
   console.log('CitizenActivate error', error);
 
   if (loading) {
-    return 'Submitting...';
+    return <h3>Submitting...</h3>;
   }
   if (error) {
-    return `Submission error! ${error.message}`;
+    return <h3>Submission error! {error.message}</h3>;
   }
 
   if (!activationStarted) {
-    activateCitizen({ variables: { citizenEmail, citizenActivationCode } });
+    activateCitizenRunMutation({ variables: { citizenEmail, citizenActivationCode } });
     setActivationStarted(true);
   }
 

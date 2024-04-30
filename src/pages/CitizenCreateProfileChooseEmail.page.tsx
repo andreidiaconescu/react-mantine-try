@@ -7,8 +7,12 @@ import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
 import { EmailPartlyHidden } from '@/components/EmailPartlyHidden/EmailPartlyHidden';
+import { useCitizenRegister } from '@/data/hooks/useCitizenRegister';
+import { getCurrentLocale } from '@/i18n/currentLocale';
+import { getBaseUrl } from '@/utils';
 
 export function CitizenCreateProfileChooseEmail() {
+  const locale = getCurrentLocale();
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
   const [registerEmail, setRegisterEmail] = useState('adiaconescu@jems-group.com');
   useEffect(() => {
@@ -44,6 +48,18 @@ export function CitizenCreateProfileChooseEmail() {
     setshowEnterOtherEmail(true);
   };
 
+  const {
+    loading: submitProfileResLoading,
+    error: submitProfileResError,
+    data: submitProfileResData,
+    runMutation: submitProfileRunMutation,
+  } = useCitizenRegister(locale, `${getBaseUrl()}/citizen/create-profile/activate-citizen`);
+
+  const onClickSubmitProfile = async () => {
+    await submitProfileRunMutation({ variables: { citizenEmail: registerEmail, locale } });
+    onNavigate('/citizen/create-profile/share-profile-with-operator');
+  };
+
   const onChangeOtherEmail = (event: any) => {
     console.log('CitizenCreateProfileChooseEmail onChangeOtherEmail event', event);
     setRegisterEmail(event.target.value);
@@ -53,6 +69,17 @@ export function CitizenCreateProfileChooseEmail() {
     console.log('CitizenCreateProfileChooseEmail onChangeOtherEmail emailIsValid', emailIsValid);
     setOtherRegisterEmailIsValid(emailIsValid);
   };
+
+  console.log('CitizenCreateProfileChooseEmail submitProfileResLoading', submitProfileResLoading);
+  console.log('CitizenCreateProfileChooseEmail submitProfileResError', submitProfileResError);
+  console.log('CitizenCreateProfileChooseEmail submitProfileResData', submitProfileResData);
+
+  if (submitProfileResLoading) {
+    return <h3>Submitting Profile ...</h3>;
+  }
+  if (submitProfileResError) {
+    return <h3>Error Submitting Profile ...</h3>;
+  }
 
   return (
     <>
@@ -95,7 +122,7 @@ export function CitizenCreateProfileChooseEmail() {
               label: classes.but_submit_profile_sel_label,
             }}
             onClick={() => {
-              onNavigate('/citizen/create-profile/share-profile-with-operator');
+              onClickSubmitProfile();
             }}
           >
             Créer mon profil
