@@ -6,6 +6,7 @@ import classes from './CitizenCreateProfileShareProfileWithOperator.module.css';
 import { CitizenPageFrame } from '@/components/CitizenPageFrame/CitizenPageFrame';
 import { CitizenHeader } from '../components/CitizenHeader/CitizenHeader';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
+import { useCitizenAddOperatorAccess } from '@/data/hooks/useCitizenAddOperatorAccess';
 
 export function CitizenCreateProfileShareProfileWithOperator() {
   const { citizenPreferences, setCitizenPreferences } = useContext(CitizenProfileContext);
@@ -39,6 +40,28 @@ export function CitizenCreateProfileShareProfileWithOperator() {
     setCitizenAcceptShareProfileWithOperator(!acceptShareProfileWithOperator);
   };
 
+  const {
+    loading: submitResLoading,
+    error: submitResError,
+    data: submitResData,
+    runMutation: submitRunMutation,
+  } = useCitizenAddOperatorAccess();
+  console.log('CitizenCreateProfileShareProfileWithOperator submitResLoading', submitResLoading);
+  console.log('CitizenCreateProfileShareProfileWithOperator submitResError', submitResError);
+  console.log('CitizenCreateProfileShareProfileWithOperator submitResData', submitResData);
+
+  const onSubmit = async () => {
+    if (acceptShareProfileWithOperator) {
+      await submitRunMutation({
+        variables: {
+          operatorAccess: [citizenPreferences.initialOperatorId],
+          activationCode: citizenPreferences.activationCode,
+        },
+      });
+    }
+    onNavigate('/citizen/create-profile/activate-account-email-sent');
+  };
+
   return (
     <>
       <CitizenPageFrame>
@@ -68,7 +91,7 @@ export function CitizenCreateProfileShareProfileWithOperator() {
               label: classes.but_submit_profile_sel_label,
             }}
             onClick={() => {
-              onNavigate('/citizen/create-profile/activate-account-email-sent');
+              onSubmit();
             }}
           >
             Valider

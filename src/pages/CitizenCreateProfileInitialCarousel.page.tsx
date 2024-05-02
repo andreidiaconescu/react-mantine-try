@@ -18,12 +18,16 @@ export function CitizenCreateProfileInitialCarousel() {
   const [embla, setEmbla] = useState<Embla | null>(null);
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [searchParams, setSearchParams] = useSearchParams({ registerEmail: null });
+  const [searchParams, setSearchParams] = useSearchParams({
+    registerEmail: '',
+    initialOperatorId: '',
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onNavigate = (nextRoute: string) => {
     // copy local preferences to higher level state (in CitizenCreateProfile)
     citizenPreferences.registerEmail = searchParams.get('registerEmail');
+    citizenPreferences.initialOperatorId = searchParams.get('initialOperatorId');
     console.log(
       'CitizenCreateProfileInitialCarousel.onNavigate citizenPreferences',
       citizenPreferences

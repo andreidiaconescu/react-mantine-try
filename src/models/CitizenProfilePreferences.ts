@@ -14,4 +14,6 @@ export class CitizenProfilePreferences {
   registerEmail?: string;
   acceptUseExistingEmail?: boolean;
   acceptShareProfileWithOperator?: boolean;
+  activationCode?: string;
+  initialOperatorId?: string;
 }

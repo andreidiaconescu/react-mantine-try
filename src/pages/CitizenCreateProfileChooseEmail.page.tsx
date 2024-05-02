@@ -10,6 +10,7 @@ import { EmailPartlyHidden } from '@/components/EmailPartlyHidden/EmailPartlyHid
 import { useCitizenRegister } from '@/data/hooks/useCitizenRegister';
 import { getCurrentLocale } from '@/i18n/currentLocale';
 import { getBaseUrl } from '@/utils';
+import { CitizenRegisterResult } from '@/models/CitizenRegisterResult';
 
 export function CitizenCreateProfileChooseEmail() {
   const locale = getCurrentLocale();
@@ -56,7 +57,7 @@ export function CitizenCreateProfileChooseEmail() {
   } = useCitizenRegister(locale, `${getBaseUrl()}/citizen/create-profile/activate-citizen`);
 
   const onClickSubmitProfile = async () => {
-    const runMutationRes = await submitProfileRunMutation({
+    const runMutationRes: CitizenRegisterResult = await submitProfileRunMutation({
       variables: { citizenEmail: registerEmail, locale },
     });
     console.log(
@@ -67,6 +68,10 @@ export function CitizenCreateProfileChooseEmail() {
       'CitizenCreateProfileChooseEmail onClickSubmitProfile submitProfileResData',
       submitProfileResData
     );
+
+    citizenPreferences.activationCode = runMutationRes.data.citizenRegister.activationCode;
+    setCitizenPreferences(citizenPreferences);
+
     onNavigate('/citizen/create-profile/share-profile-with-operator');
   };
 
