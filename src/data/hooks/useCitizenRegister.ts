@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
-import { getCurrentLocale } from '@/i18n/currentLocale';
 import { Area } from '@/models/Area';
 import { CitizenProfileContext } from '@/state/CitizenProfile.context';
 import { CitizenProfilePreferences } from '@/models/CitizenProfilePreferences';
 import { PreferenceType } from '@/models/preference-type';
 import { PreferenceRating } from '@/models/PreferenceRating';
+import { Category } from '@/models/Category';
 
 // operatorAccess: ["65ef1a3d78b86521cfb1d945"]
 // link: "http://localhost:5173/citizen/create-profile/activate-citizen"
@@ -51,11 +51,7 @@ const CITIZEN_REGISTER_WITH_PREFERENCES = `
   }
 `;
 
-const buildAreasForGqlAddPrefs = (
-  areas: Area[],
-  gqlCitizenAddPrefs: any[],
-  locale: string
-): string => {
+const buildAreasForGqlAddPrefs = (areas: Area[], locale: string): string => {
   const gqlAreas: string[] = areas.map((area: Area) => {
     const gqlArea: any = `{
       preferenceType: ${PreferenceType.Area},
@@ -86,18 +82,108 @@ const buildAreasForGqlAddPrefs = (
   )}`;
 };
 
+const buildCategsLvl1ForGqlAddPrefs = (categs: Category[], locale: string): string => {
+  const gqlCategs: string[] = categs.map((categ: Category) => {
+    const gqlCateg: any = `{
+      preferenceType: ${PreferenceType.Category},
+      genericPreference: {
+        termCode: "${categ.termCode}",
+        version: ${categ.version},
+        entityTranslations: [
+          {
+            locale: "${locale}",
+            fields: [
+              {
+                field: "name",
+                value: "${categ.name}",
+              },
+            ],
+          },
+        ]
+      },
+      rating: ${PreferenceRating.Max}
+    }`;
+    return gqlCateg;
+  });
+
+  // gqlCitizenAddPrefs.push(...gqlAreas);
+  return `${gqlCategs.join(
+    `,
+    `
+  )}`;
+};
+
+const buildCategsLvl2ForGqlAddPrefs = (categs: Category[], locale: string): string => {
+  const gqlCategs: string[] = categs.map((categ: Category) => {
+    const gqlCateg: any = `{
+      preferenceType: ${PreferenceType.Category},
+      genericPreference: {
+        termCode: "${categ.termCode}",
+        version: ${categ.version},
+        entityTranslations: [
+          {
+            locale: "${locale}",
+            fields: [
+              {
+                field: "name",
+                value: "${categ.name}",
+              },
+            ],
+          },
+        ],
+        parentCategory: {
+          termCode: "${categ.parentCategory.termCode}",
+          version: ${categ.parentCategory.version},
+          entityTranslations: [
+            {
+              locale: "${locale}",
+              fields: [
+                {
+                  field: "name",
+                  value: "${categ.parentCategory.name}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      rating: ${PreferenceRating.Max}
+    }`;
+    return gqlCateg;
+  });
+
+  // gqlCitizenAddPrefs.push(...gqlAreas);
+  return `${gqlCategs.join(
+    `,
+    `
+  )}`;
+};
+
 const buildGqlCitizenAddPrefs = (
   citizenPreferences: CitizenProfilePreferences,
   locale: string
 ): string => {
   const gqlCitizenAddPrefs: string[] = [];
+
   if (Array.isArray(citizenPreferences.areas)) {
-    const areasGqlStr = buildAreasForGqlAddPrefs(
-      citizenPreferences.areas,
-      gqlCitizenAddPrefs,
+    const areasGqlStr = buildAreasForGqlAddPrefs(citizenPreferences.areas, locale);
+    gqlCitizenAddPrefs.push(areasGqlStr);
+  }
+
+  if (Array.isArray(citizenPreferences.categoriesLvl1)) {
+    const categsLvl1GqlStr = buildCategsLvl1ForGqlAddPrefs(
+      citizenPreferences.categoriesLvl1,
       locale
     );
-    gqlCitizenAddPrefs.push(areasGqlStr);
+    gqlCitizenAddPrefs.push(categsLvl1GqlStr);
+  }
+
+  if (Array.isArray(citizenPreferences.categoriesLvl2)) {
+    const categsLvl2GqlStr = buildCategsLvl2ForGqlAddPrefs(
+      citizenPreferences.categoriesLvl2,
+      locale
+    );
+    gqlCitizenAddPrefs.push(categsLvl2GqlStr);
   }
 
   return `[${gqlCitizenAddPrefs.join(

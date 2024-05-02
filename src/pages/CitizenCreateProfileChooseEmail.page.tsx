@@ -56,7 +56,17 @@ export function CitizenCreateProfileChooseEmail() {
   } = useCitizenRegister(locale, `${getBaseUrl()}/citizen/create-profile/activate-citizen`);
 
   const onClickSubmitProfile = async () => {
-    await submitProfileRunMutation({ variables: { citizenEmail: registerEmail, locale } });
+    const runMutationRes = await submitProfileRunMutation({
+      variables: { citizenEmail: registerEmail, locale },
+    });
+    console.log(
+      'CitizenCreateProfileChooseEmail onClickSubmitProfile runMutationRes',
+      runMutationRes
+    );
+    console.log(
+      'CitizenCreateProfileChooseEmail onClickSubmitProfile submitProfileResData',
+      submitProfileResData
+    );
     onNavigate('/citizen/create-profile/share-profile-with-operator');
   };
 

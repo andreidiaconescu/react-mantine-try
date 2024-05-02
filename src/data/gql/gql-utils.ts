@@ -6,7 +6,8 @@ export const parseGqlData = <TItem>(
   gqlData: any,
   holderName: string,
   TItem: new (initData: any) => TItem,
-  locale: string = getCurrentLocale()
+  locale: string = getCurrentLocale(),
+  parentField: string = null
 ): any[] => {
   if (!gqlData[holderName]) {
     return [];
@@ -16,6 +17,12 @@ export const parseGqlData = <TItem>(
   return rawItems.map((rawItem: any) => {
     const itemObj = (TItem as any).newInstance(rawItem);
     parseGqlTranslations(itemObj, locale);
+
+    if (parentField && rawItem[parentField]) {
+      const parent = (TItem as any).newInstance(rawItem[parentField]);
+      parseGqlTranslations(parent, locale);
+      itemObj[parentField] = parent;
+    }
     return itemObj;
   });
   // return [];

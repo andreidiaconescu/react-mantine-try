@@ -156,7 +156,7 @@ export function useCategs(
 
   let data = null;
   if (!loading && gqlData) {
-    data = parseGqlData(gqlData, 'categories', Category, locale);
+    data = parseGqlData(gqlData, 'categories', Category, locale, 'parentCategory');
   }
   return { loading, error, data };
 }
