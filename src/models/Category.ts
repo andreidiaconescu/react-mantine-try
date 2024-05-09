@@ -1,3 +1,4 @@
+import { Translation } from '@/i18n/translation.interface';
 import { ModelBase } from './ModelBase';
 
 export class Category extends ModelBase {
@@ -5,4 +6,5 @@ export class Category extends ModelBase {
   termCode: string;
   version: number;
   parentCategory?: Category;
+  public translations?: Translation[];
 }

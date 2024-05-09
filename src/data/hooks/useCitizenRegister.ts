@@ -7,6 +7,9 @@ import { CitizenProfilePreferences } from '@/models/CitizenProfilePreferences';
 import { PreferenceType } from '@/models/preference-type';
 import { PreferenceRating } from '@/models/PreferenceRating';
 import { Category } from '@/models/Category';
+import { Audience } from '@/models/Audience';
+import { CulturalCreator } from '@/models/CulturalCreator';
+import { CulturalOperator } from '@/models/CulturalOperator';
 
 // operatorAccess: ["65ef1a3d78b86521cfb1d945"]
 // link: "http://localhost:5173/citizen/create-profile/activate-citizen"
@@ -159,6 +162,73 @@ const buildCategsLvl2ForGqlAddPrefs = (categs: Category[], locale: string): stri
   )}`;
 };
 
+const buildAudiencesForGqlAddPrefs = (audiences: Audience[], locale: string): string => {
+  const gqlAudiences: string[] = audiences.map((audience: Audience) => {
+    const gqlArea: any = `{
+      preferenceType: ${PreferenceType.Audience},
+      genericPreference: {
+        termCode: "${audience.termCode}",
+        version: ${audience.version},
+        entityTranslations: [
+          {
+            locale: "${locale}",
+            fields: [
+              {
+                field: "name",
+                value: "${audience.name}",
+              },
+            ],
+          },
+        ]
+      },
+      rating: ${PreferenceRating.Max}
+    }`;
+    return gqlArea;
+  });
+
+  // gqlCitizenAddPrefs.push(...gqlAreas);
+  return `${gqlAudiences.join(
+    `,
+    `
+  )}`;
+};
+
+const buildCulturalCreatorsForGqlAddPrefs = (culturalCreators: CulturalCreator[]): string => {
+  const gqlCulturalCreators: string[] = culturalCreators.map((culturalCreator: CulturalCreator) => {
+    const gqlCulturalCreator: any = `{
+      preferenceType: ${PreferenceType.CulturalCreator},
+      specificPreference: "${culturalCreator._id}",
+      rating: ${PreferenceRating.Max}
+    }`;
+    return gqlCulturalCreator;
+  });
+
+  // gqlCitizenAddPrefs.push(...gqlAreas);
+  return `${gqlCulturalCreators.join(
+    `,
+    `
+  )}`;
+};
+
+const buildCulturalOperatorsForGqlAddPrefs = (culturalOperators: CulturalOperator[]): string => {
+  const gqlCulturalOperators: string[] = culturalOperators.map(
+    (culturalOperator: CulturalOperator) => {
+      const gqlCulturalOperator: any = `{
+      preferenceType: ${PreferenceType.CulturalOperator},
+      specificPreference: "${culturalOperator._id}",
+      rating: ${PreferenceRating.Max}
+    }`;
+      return gqlCulturalOperator;
+    }
+  );
+
+  // gqlCitizenAddPrefs.push(...gqlAreas);
+  return `${gqlCulturalOperators.join(
+    `,
+    `
+  )}`;
+};
+
 const buildGqlCitizenAddPrefs = (
   citizenPreferences: CitizenProfilePreferences,
   locale: string
@@ -184,6 +254,25 @@ const buildGqlCitizenAddPrefs = (
       locale
     );
     gqlCitizenAddPrefs.push(categsLvl2GqlStr);
+  }
+
+  if (Array.isArray(citizenPreferences.audiences)) {
+    const audiencesGqlStr = buildAudiencesForGqlAddPrefs(citizenPreferences.audiences, locale);
+    gqlCitizenAddPrefs.push(audiencesGqlStr);
+  }
+
+  if (Array.isArray(citizenPreferences.culturalCreators)) {
+    const culturalCreatorsGqlStr = buildCulturalCreatorsForGqlAddPrefs(
+      citizenPreferences.culturalCreators
+    );
+    gqlCitizenAddPrefs.push(culturalCreatorsGqlStr);
+  }
+
+  if (Array.isArray(citizenPreferences.culturalOperators)) {
+    const culturalOperatorsGqlStr = buildCulturalOperatorsForGqlAddPrefs(
+      citizenPreferences.culturalOperators
+    );
+    gqlCitizenAddPrefs.push(culturalOperatorsGqlStr);
   }
 
   return `[${gqlCitizenAddPrefs.join(

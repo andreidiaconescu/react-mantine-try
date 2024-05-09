@@ -22,6 +22,7 @@ const GET_AUDIENCES = `
         _id
         name
         termCode
+        version
         translations {
           locale
           fields {
