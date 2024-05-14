@@ -12,6 +12,7 @@ import { CitizenCreateProfileShareProfileWithOperator } from './pages/CitizenCre
 import { CitizenCreateProfileActivateAccountEmailSent } from './pages/CitizenCreateProfileActivateAccountEmailSent.page';
 import { CitizenCreateProfileInitialCarousel } from './pages/CitizenCreateProfileInitialCarousel.page';
 import { CitizenActivate } from './pages/CitizenActivate.page';
+import { CitizenCreateProfileSuccess } from './pages/CitizenCreateProfileSuccess.page';
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
           {
             path: 'activate-citizen',
             element: <CitizenActivate />,
+          },
+          {
+            path: 'success',
+            element: <CitizenCreateProfileSuccess />,
           },
         ],
       },

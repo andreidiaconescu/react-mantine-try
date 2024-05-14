@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate, NavigateFunction } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 
 import classes from './CitizenActivate.module.css';
@@ -14,6 +14,7 @@ export function CitizenActivate() {
     citizenEmail: null,
     citizenActivationCode: null,
   });
+  const navigate: NavigateFunction = useNavigate();
 
   const citizenEmail = searchParams.get('citizenEmail');
   const citizenActivationCode = searchParams.get('citizenActivationCode');
@@ -51,6 +52,9 @@ export function CitizenActivate() {
   }
 
   const activationResultIsOk = () => data && data.citizenActivate && data.citizenActivate.length();
+  if (activationResultIsOk) {
+    navigate('/citizen/create-profile/success');
+  }
 
   return (
     <>
